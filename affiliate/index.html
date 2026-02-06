@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Produk Pilihan ✨</title>
+    <title>Web Katalog ✨</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        /* PEMANGGILAN FONT */
         @font-face { font-family: 'HelloHoney'; src: url('hello honey.otf'); }
         @font-face { font-family: 'AdeliaFont'; src: url('Adelia.otf'); }
         @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
 
-        :root { --sage: #4f6d4f; --cream: #f4f9f4; }
+        :root { --sage: #4f6d4f; --soft: #dcedc1; --cream: #f4f9f4; }
 
         body {
             margin: 0; background: var(--cream); color: var(--sage);
@@ -18,102 +19,131 @@
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* ANIMASI DAUN */
-        .leaf { position: fixed; top: -20px; z-index: 999; pointer-events: none; animation: fall linear forwards; opacity: 0.5; }
+        /* DAUN JATUH */
+        .leaf { position: fixed; top: -20px; z-index: 999; pointer-events: none; animation: fall linear forwards; opacity: 0.6; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
         /* CARD UTAMA */
-        .card {
-            width: 85%; max-width: 500px; background: #fff; border-radius: 40px;
-            padding: 35px 25px; margin: 30px 0; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #fff;
+        .main-card {
+            width: 88%; max-width: 500px; background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px); border-radius: 45px;
+            padding: 40px 25px; margin: 30px 0; text-align: center;
+            border: 2px solid #fff; box-shadow: 0 20px 40px rgba(79, 109, 79, 0.1);
         }
 
-        .logo-img { width: 90px; animation: float 3s ease-in-out infinite; }
+        .logo-ani { width: 110px; animation: float 3s ease-in-out infinite; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.05)); }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .welcome { font-family: 'HelloHoney'; font-size: 4rem; margin: 10px 0; color: var(--sage); }
+        .welcome-text { font-family: 'HelloHoney'; font-size: 4.5rem; margin: 10px 0; line-height: 1; }
         
-        /* DESKRIPSI LEBIH BANYAK */
-        .desc { font-size: 0.95rem; line-height: 1.6; color: #666; margin-bottom: 25px; }
+        .intro-text { font-size: 1rem; line-height: 1.6; color: #555; margin-bottom: 25px; font-style: italic; }
 
-        .btn-group { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; }
-        .btn { padding: 12px 25px; border-radius: 50px; border: none; font-family: 'Adelia2Font'; cursor: pointer; transition: 0.3s; }
-        .btn-1 { background: var(--sage); color: white; }
-        .btn-2 { background: white; color: var(--sage); border: 1px solid var(--sage); }
+        /* TOMBOL OWNER & SAFETY - FONT ADELIA2 */
+        .group-btn { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; }
+        .btn-action { 
+            padding: 15px 25px; border-radius: 50px; border: none; 
+            font-family: 'Adelia2Font'; font-size: 1rem; cursor: pointer; transition: 0.4s;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        }
+        .btn-dark { background: var(--sage); color: white; }
+        .btn-light { background: white; color: var(--sage); border: 2.5px solid var(--sage); }
+        .btn-action:hover { transform: scale(1.05); }
 
         /* NAVIGASI STICKY */
-        .nav {
-            position: sticky; top: 0; width: 100%; background: rgba(244, 249, 244, 0.95);
+        .sticky-nav {
+            position: sticky; top: 0; width: 100%; background: rgba(244, 249, 244, 0.96);
             z-index: 1000; padding: 15px 0; display: flex; justify-content: center; gap: 15px;
-            border-bottom: 1px solid rgba(0,0,0,0.05); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(79, 109, 79, 0.1);
         }
-        .nav-item {
-            padding: 10px 20px; border-radius: 25px; cursor: pointer;
-            font-family: 'Adelia2Font'; font-size: 0.9rem; background: #fff; border: 1px solid #eee;
+        .nav-pill {
+            padding: 12px 22px; border-radius: 30px; cursor: pointer;
+            font-family: 'Adelia2Font'; font-size: 1rem; background: white; border: 1.5px solid #eee;
         }
-        .nav-item.active { background: var(--sage); color: #fff; }
+        .nav-pill.active { background: var(--sage); color: #fff; border-color: var(--sage); }
 
-        /* IFRAME */
         iframe { width: 100%; min-height: 1500px; border: none; }
 
-        /* WATERMARK LOGO DI BAWAH */
-        .bottom-logo {
-            font-family: 'AdeliaFont'; font-size: 1.8rem;
-            margin: 50px 0; opacity: 0.6; color: var(--sage);
-        }
+        /* WATERMARK BAWAH */
+        .footer-logo { font-family: 'AdeliaFont'; font-size: 2.2rem; margin: 60px 0; opacity: 0.5; }
 
         /* BUTTON TOP */
-        #btnTop {
+        #goTop {
             display: none; position: fixed; bottom: 30px; right: 20px; z-index: 9999;
-            background: var(--sage); color: white; border: none; width: 45px; height: 45px;
-            border-radius: 50%; cursor: pointer; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            background: var(--sage); color: white; border: none; width: 50px; height: 50px;
+            border-radius: 50%; cursor: pointer; font-size: 22px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
-    <button onclick="scrollToTop()" id="btnTop" title="Ke Atas">↑</button>
+    <button onclick="scrollToTop()" id="goTop">↑</button>
 
-    <div class="card">
-        <img src="Logo_husnah.png" class="logo-img">
-        <h1 class="welcome">Hello, Welcome!</h1>
-        <p class="desc">
-            Temukan koleksi perlengkapan terbaik yang sudah dikurasi khusus untuk kamu. Mulai dari outfit harian yang simpel dan elegan, hingga aksesoris unik untuk melengkapi gayamu. Semua produk bersumber dari toko terpercaya dengan kualitas yang terjamin. Selamat menjelajahi katalog kami!
+    <div class="main-card">
+        <img src="Logo_husnah.png" class="logo-ani">
+        <h1 class="welcome-text">Hello, Welcome!</h1>
+        <p class="intro-text">
+            Cari barang estetik nggak usah pusing lagi! Di sini udah aku kumpulin semua racun produk pilihan yang oke punya. Scroll aja sampe bawah, sikat yang kamu suka! ✨
         </p>
-        <div class="btn-group">
-            <button class="btn btn-1" onclick="Swal.fire('Terima Kasih!', 'Sudah berkunjung ke katalog kami.', 'success')">Owner</button>
-            <button class="btn btn-2" onclick="Swal.fire('Keamanan', 'Semua link langsung menuju marketplace resmi.', 'info')">Safety</button>
+        
+        <div class="group-btn">
+            <button class="btn-action btn-dark" onclick="openOwner()">Owner 🎀</button>
+            <button class="btn-action btn-light" onclick="openSafety()">Safety 🛡️</button>
         </div>
-        <div style="font-size: 0.8rem;">
-            🤖 Sewa Bot WhatsApp: <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--sage); font-weight: bold; text-decoration: none;">Klik Disini</a>
+        
+        <div style="font-size: 0.85rem; opacity: 0.8; border-top: 1px dashed #ccc; padding-top: 15px;">
+            🤖 Mau sewa Bot WA? Langsung gas ke sini: <br>
+            <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--sage); font-weight: bold; text-decoration: none;">Klik link ini ya!</a>
         </div>
     </div>
 
-    <div class="nav" id="main-nav">
-        <div class="nav-item active" onclick="loadPage('baju.html', this)">👗 Outfit</div>
-        <div class="nav-item" onclick="loadPage('aksesoris.html', this)">🎀 Accessories</div>
+    <div class="sticky-nav" id="nav-anchor">
+        <div class="nav-pill active" onclick="loadPage('baju.html', this)">👗 Outfit</div>
+        <div class="nav-pill" onclick="loadPage('aksesoris.html', this)">🎀 Accessories</div>
     </div>
 
-    <iframe src="baju.html" id="content-frame"></iframe>
+    <iframe src="baju.html" id="frame-box"></iframe>
 
-    <div class="bottom-logo">_husnahWeb</div>
+    <div class="footer-logo">_husnahWeb</div>
 
     <script>
-        // Fungsi Ganti Halaman + Auto Scroll Up
         function loadPage(url, el) {
-            document.getElementById('content-frame').src = url;
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('frame-box').src = url;
+            document.querySelectorAll('.nav-pill').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
             
-            const navPos = document.getElementById('main-nav').offsetTop;
+            // AUTO SCROLL KE NAVIGASI
+            const navPos = document.getElementById('nav-anchor').offsetTop;
             window.scrollTo({ top: navPos, behavior: 'smooth' });
         }
 
-        // Fungsi Tombol Ke Atas
+        function openOwner() {
+            Swal.fire({
+                title: 'Meet Me! ✨',
+                html: '<p style="font-family:Adelia2Font; font-size:1.1rem;">Halo! Makasih udah mampir ke katalog kecil ini. Semoga dapet barang yang pas ya!</p>',
+                imageUrl: 'https://files.catbox.moe/ivj273.jpg',
+                imageWidth: 120, imageHeight: 120,
+                imageAlt: 'Owner',
+                confirmButtonText: 'Sipp!',
+                confirmButtonColor: '#4f6d4f',
+                background: '#f4f9f4',
+                customClass: { title: 'swal-title-custom' }
+            });
+        }
+
+        function openSafety() {
+            Swal.fire({
+                title: 'Aman Terpercaya! ✅',
+                text: 'Gak usah khawatir, semua link produk di sini 100% aman dan langsung nyambung ke toko official kok.',
+                icon: 'success',
+                confirmButtonText: 'Oke deh!',
+                confirmButtonColor: '#4f6d4f'
+            });
+        }
+
+        // TOMBOL TOP VISIBILITY
         window.onscroll = function() {
-            let btn = document.getElementById("btnTop");
-            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+            let btn = document.getElementById("goTop");
+            if (document.documentElement.scrollTop > 600) {
                 btn.style.display = "block";
             } else {
                 btn.style.display = "none";
@@ -124,7 +154,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Animasi Daun
+        // ANIMASI DAUN
         setInterval(() => {
             const leaf = document.createElement('div');
             leaf.className = 'leaf';
@@ -134,7 +164,7 @@
             leaf.style.animationDuration = (Math.random() * 5 + 5) + 's';
             document.body.appendChild(leaf);
             setTimeout(() => leaf.remove(), 8000);
-        }, 1000);
+        }, 1200);
     </script>
 </body>
 </html>
