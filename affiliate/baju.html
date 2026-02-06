@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Otomatis</title>
     <style>
-        /* 1. SETUP DASAR */
+        /* SETUP FONT & DASAR */
+        @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
+
         body {
             margin: 0;
             padding: 20px;
@@ -15,7 +18,7 @@
             align-items: center;
         }
 
-        /* CONTAINER BIAR PRODUK RAPI */
+        /* CONTAINER GRID PRODUK */
         .container-produk {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -24,7 +27,7 @@
             justify-items: center;
         }
 
-        /* 2. CARD PRODUK */
+        /* CARD PRODUK */
         .product-card {
             background: white;
             border-radius: 25px;
@@ -71,9 +74,9 @@
             border-radius: 12px; font-size: 0.75rem; font-weight: bold; transition: 0.3s;
         }
 
+        /* STYLE TOMBOL */
         .btn-shopee { background: #feeee8; color: #ee4d2d; border: 1px solid #ee4d2d; }
         .btn-shopee:hover { background: #ee4d2d; color: white; }
-
         .btn-tiktok { background: #f1f1f1; color: #000000; border: 1px solid #000000; }
         .btn-tiktok:hover { background: #000000; color: white; }
 
@@ -84,7 +87,10 @@
             color: #4f6d4f; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* SECTION PENGINGAT / QUOTE */
+        /* LOADING & ERROR */
+        #loading { font-family: 'Adelia2Font', sans-serif; color: #4f6d4f; margin: 50px 0; text-align: center; }
+
+        /* QUOTE & HADITS */
         .reminder-section {
             text-align: center;
             padding: 60px 20px;
@@ -92,17 +98,15 @@
             width: 100%;
             max-width: 600px;
         }
-
         .divider { font-size: 24px; margin-bottom: 20px; opacity: 0.5; }
-
         .quote-text {
             font-family: 'Adelia2Font', sans-serif;
             font-size: 1.1rem;
             color: #4f6d4f;
             margin-bottom: 20px;
             line-height: 1.5;
+            text-transform: uppercase;
         }
-
         .hadits-box {
             padding: 20px;
             background: white;
@@ -110,17 +114,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             border: 1px dashed #dcedc1;
         }
-
-        .hadits-text {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: #666;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
+        .hadits-text { font-size: 0.85rem; line-height: 1.6; color: #666; font-style: italic; margin-bottom: 10px; }
         .perawi { font-size: 0.75rem; font-weight: bold; color: #4f6d4f; }
 
+        /* RESPONSIVE HP */
         @media (max-width: 550px) {
             .container-produk { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .product-image { height: 160px; }
@@ -132,18 +129,9 @@
 </head>
 <body>
 
-    <div class="container-produk">
-        
-        <div class="product-card">
-            <div class="badge">Gemoy ✨</div>
-            <img src="https://files.catbox.moe/q9nswa.jpg" alt="Sendal Crocs" class="product-image">
-            <div class="product-desc">Sendal crocs lucu premium - Nyaman banget buat jalan seharian!</div>
-            <div class="button-group">
-                <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
-                <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
-            </div>
-        </div>
+    <div id="loading">Tunggu bentar ya, lagi nyari koleksi cantik buat kamu... ✨</div>
 
+    <div class="container-produk" id="produk-list">
         </div>
 
     <div class="reminder-section">
@@ -157,5 +145,62 @@
         </div>
     </div>
 
+    <script>
+        // DATA SPREADSHEET KAMU
+        const SPREADSHEET_ID = '1teY0nhzi_On7Nwgdg7oFC8tbqCQxHVPYuIHltNNpipo';
+        const TAB_NAME = 'Sheet1'; 
+
+        // DETEKSI KATEGORI OTOMATIS
+        const path = window.location.pathname;
+        const kategoriHalaman = path.includes('aksesoris') ? 'aksesoris' : 'baju';
+
+        const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${TAB_NAME}`;
+
+        fetch(url)
+            .then(res => res.text())
+            .then(data => {
+                // Bersihkan data dari Google biar jadi JSON murni
+                const json = JSON.parse(data.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                const list = document.getElementById('produk-list');
+                document.getElementById('loading').style.display = 'none';
+
+                rows.forEach((row, index) => {
+                    // Skip baris pertama (judul kolom)
+                    if(index === 0) return;
+
+                    const kat = row.c[0] ? row.c[0].v : '';
+                    const badge = row.c[1] ? row.c[1].v : '';
+                    const foto = row.c[2] ? row.c[2].v : '';
+                    const desc = row.c[3] ? row.c[3].v : '';
+                    const shopee = row.c[4] ? row.c[4].v : '';
+                    const tiktok = row.c[5] ? row.c[5].v : '';
+
+                    // Munculkan jika kategori cocok (baju/aksesoris)
+                    if (kat && kat.toLowerCase() === kategoriHalaman) {
+                        list.innerHTML += `
+                            <div class="product-card">
+                                ${badge ? `<div class="badge">${badge}</div>` : ''}
+                                <img src="${foto}" alt="${desc}" class="product-image">
+                                <div class="product-desc">${desc}</div>
+                                <div class="button-group">
+                                    <a href="${shopee}" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
+                                    <a href="${tiktok}" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                // Jika data kosong
+                if(list.innerHTML === "") {
+                    list.innerHTML = "<p style='color:#999'>Belum ada produk untuk kategori ini.</p>";
+                }
+            })
+            .catch(err => {
+                document.getElementById('loading').innerHTML = "Waduh, ada kendala koneksi ke Google Sheets!";
+                console.error(err);
+            });
+    </script>
 </body>
 </html>
