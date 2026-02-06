@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* SETUP DASAR (SAMA DENGAN BAJU.HTML AGAR SERAGAM) */
+        /* SETUP DASAR */
+        @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
+
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: transparent; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* CONTAINER PRODUK (GRID) */
+        .container-produk {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 30px;
+            width: 100%;
             justify-items: center;
         }
 
@@ -55,99 +65,128 @@
             min-height: 2.4rem;
         }
 
-        /* TOMBOL CEK PRODUK */
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .button-group { display: flex; flex-direction: column; gap: 8px; }
 
         .btn-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; text-decoration: none; padding: 10px;
+            border-radius: 12px; font-size: 0.75rem; font-weight: bold; transition: 0.3s;
         }
 
-        .btn-shopee {
-            background: #feeee8;
-            color: #ee4d2d;
-            border: 1px solid #ee4d2d;
-        }
+        .btn-shopee { background: #feeee8; color: #ee4d2d; border: 1px solid #ee4d2d; }
         .btn-shopee:hover { background: #ee4d2d; color: white; }
 
-        .btn-tiktok {
-            background: #f1f1f1;
-            color: #000000;
-            border: 1px solid #000000;
-        }
+        .btn-tiktok { background: #f1f1f1; color: #000000; border: 1px solid #000000; }
         .btn-tiktok:hover { background: #000000; color: white; }
 
         .badge {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.65rem;
-            font-weight: bold;
-            color: #4f6d4f;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: absolute; top: 25px; right: 25px;
+            background: rgba(255, 255, 255, 0.9); padding: 5px 10px;
+            border-radius: 10px; font-size: 0.65rem; font-weight: bold;
+            color: #4f6d4f; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        /* SECTION PENGINGAT / QUOTE (DI LUAR GRID) */
+        .reminder-section {
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 600px;
+            border-top: 1px dashed #dcedc1;
+        }
+
+        .divider { font-size: 24px; margin-bottom: 20px; opacity: 0.5; }
+
+        .quote-text {
+            font-family: 'Adelia2Font', sans-serif;
+            font-size: 1.1rem;
+            color: #4f6d4f;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-transform: uppercase;
+        }
+
+        .hadits-box {
+            padding: 25px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid #eee;
+        }
+
+        .hadits-text {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .perawi { font-size: 0.8rem; font-weight: bold; color: #4f6d4f; }
+
         @media (max-width: 550px) {
-            body { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 15px; }
+            .container-produk { grid-template-columns: repeat(2, 1fr); padding: 5px; gap: 15px; }
             .product-image { height: 160px; }
             .product-desc { font-size: 0.75rem; }
             .btn-link { font-size: 0.65rem; padding: 8px; }
+            .quote-text { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="product-card">
-        <div class="badge">Cute! 🎀</div>
-        <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 1" class="product-image">
-        <div class="product-desc">Aksesoris Cantik Premium - Pelengkap outfit kamu biar makin estetik!</div>
-        <div class="button-group">
-            <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
-            <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+    <div class="container-produk">
+        
+        <div class="product-card">
+            <div class="badge">Cute! 🎀</div>
+            <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 1" class="product-image">
+            <div class="product-desc">Aksesoris Cantik Premium - Pelengkap outfit kamu biar makin estetik!</div>
+            <div class="button-group">
+                <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
+                <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+            </div>
         </div>
+
+        <div class="product-card">
+            <div class="badge">Best Sell ✨</div>
+            <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 2" class="product-image">
+            <div class="product-desc">Aksesoris Cantik Premium - Wajib punya buat koleksi di rumah!</div>
+            <div class="button-group">
+                <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
+                <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 3" class="product-image">
+            <div class="product-desc">Aksesoris Cantik Premium - Bahannya berkualitas dan nggak gampang rusak.</div>
+            <div class="button-group">
+                <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
+                <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge">Must Have! 🌟</div>
+            <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 4" class="product-image">
+            <div class="product-desc">Aksesoris Cantik Premium - Spill harganya murah banget tapi mewah.</div>
+            <div class="button-group">
+                <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
+                <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+            </div>
+        </div>
+
     </div>
 
-    <div class="product-card">
-        <div class="badge">Best Sell ✨</div>
-        <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 2" class="product-image">
-        <div class="product-desc">Aksesoris Cantik Premium - Wajib punya buat koleksi di rumah!</div>
-        <div class="button-group">
-            <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
-            <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
-        </div>
-    </div>
-
-    <div class="product-card">
-        <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 3" class="product-image">
-        <div class="product-desc">Aksesoris Cantik Premium - Bahannya berkualitas dan nggak gampang rusak.</div>
-        <div class="button-group">
-            <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
-            <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
-        </div>
-    </div>
-
-    <div class="product-card">
-        <div class="badge">Must Have! 🌟</div>
-        <img src="https://files.catbox.moe/q9nswa.jpg" alt="Aksesoris 4" class="product-image">
-        <div class="product-desc">Aksesoris Cantik Premium - Spill harganya murah banget tapi mewah.</div>
-        <div class="button-group">
-            <a href="https://s.shopee.co.id/9KcNG8QFz3" target="_blank" class="btn-link btn-shopee">🛍️ Cek di Shopee</a>
-            <a href="https://vt.tokopedia.com/t/ZS9JJq3LU5wkM-WmRU3/" target="_blank" class="btn-link btn-tiktok">📱 Cek di TikTok</a>
+    <div class="reminder-section">
+        <div class="divider">🍃</div>
+        <h2 class="quote-text">"BETAPAPUN KAMU TINGGI ADA KALANYA KAMU MEMBUMI"</h2>
+        <div class="hadits-box">
+            <p class="hadits-text">
+                Nabi shallallahu 'alaihi wa sallam pernah bersabda, "Dan sesungguhnya Allah mewahyukan padaku untuk memiliki sifat tawadhu. Janganlah seseorang menyombongkan diri dan melampaui batas pada yang lain."
+            </p>
+            <span class="perawi">(HR. Muslim no. 2865)</span>
         </div>
     </div>
 
