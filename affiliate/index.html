@@ -3,186 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>_husnahWeb | Katalog Estetik ✨</title>
+    <title>Web Katalog ✨</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* FONT CUSTOM */
         @font-face { font-family: 'HelloHoney'; src: url('hello honey.otf'); }
         @font-face { font-family: 'AdeliaFont'; src: url('Adelia.otf'); }
         @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
 
         :root {
             --sage: #4f6d4f;
-            --soft-green: #dcedc1;
-            --bg-cream: #f4f9f4;
-            --white: #ffffff;
+            --bg: #f4f9f4;
         }
 
         body {
             margin: 0; padding: 0;
-            background-color: var(--bg-cream);
-            background-image: radial-gradient(var(--soft-green) 2px, transparent 2px);
-            background-size: 35px 35px;
+            background-color: var(--bg);
+            background-image: radial-gradient(#dcedc1 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
             color: var(--sage);
             display: flex; flex-direction: column; align-items: center;
-            overflow-x: hidden;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: sans-serif;
         }
 
-        /* NAMA BRAND ATAS */
-        .brand-header {
+        .header-title {
             font-family: 'AdeliaFont', cursive;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-top: 40px;
-            letter-spacing: 1px;
         }
 
-        /* ANIMASI DAUN JATUH */
         .leaf {
             position: fixed; top: -20px; z-index: 9999;
             pointer-events: none; animation: fall linear forwards;
-            opacity: 0.5; font-size: 20px;
+            opacity: 0.5;
         }
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* CARD UTAMA */
-        .glass-card {
-            width: 88%; max-width: 500px;
+        .card {
+            width: 85%; max-width: 450px;
             background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border-radius: 40px; padding: 30px 20px;
+            border-radius: 35px; padding: 30px;
             margin: 20px 0; text-align: center;
-            border: 1px solid var(--white);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .logo-floating {
-            width: 100px;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+        .logo { width: 90px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .welcome-msg {
+        .welcome {
             font-family: 'HelloHoney', cursive;
-            font-size: 4rem;
-            margin: 10px 0;
-            color: var(--sage);
+            font-size: 3.5rem; margin: 10px 0;
         }
 
-        /* TOMBOL OWNER & SAFETY */
-        .btn-flex { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
-        .btn-husnah {
-            padding: 12px 25px; border-radius: 50px; border: none;
-            font-family: 'Adelia2Font', sans-serif;
-            font-size: 0.9rem; cursor: pointer; transition: 0.3s;
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .btn {
+            padding: 10px 20px; border-radius: 50px; border: none;
+            font-family: 'Adelia2Font'; cursor: pointer;
         }
-        .btn-dark { background: var(--sage); color: white; }
-        .btn-light { background: white; color: var(--sage); border: 1.5px solid var(--sage); }
+        .btn-1 { background: var(--sage); color: white; }
+        .btn-2 { background: white; color: var(--sage); border: 1px solid var(--sage); }
 
-        /* NAVIGASI STICKY */
-        .nav-container {
+        .nav {
             position: sticky; top: 0; width: 100%;
             background: rgba(244, 249, 244, 0.98);
             z-index: 1000; padding: 15px 0;
-            display: flex; justify-content: center; gap: 15px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex; justify-content: center; gap: 10px;
+            border-bottom: 1px solid #ddd;
         }
-        .nav-pill {
-            padding: 10px 20px; border-radius: 30px; cursor: pointer;
-            font-family: 'Adelia2Font', sans-serif; font-size: 0.9rem;
-            background: white; border: 1.5px solid #eee;
+        .nav-item {
+            padding: 8px 18px; border-radius: 20px; cursor: pointer;
+            font-family: 'Adelia2Font'; font-size: 0.9rem;
+            background: white; border: 1px solid #eee;
         }
-        .nav-pill.active { background: var(--sage); color: white; border-color: var(--sage); }
+        .nav-item.active { background: var(--sage); color: white; }
 
         iframe { width: 100%; min-height: 1500px; border: none; }
-
-        @media (max-width: 600px) {
-            .welcome-msg { font-size: 3rem; }
-            .brand-header { font-size: 2rem; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="brand-header">_husnahWeb</div>
+    <div class="header-title">_webKatalog</div>
 
-    <div class="glass-card">
-        <img src="Logo_husnah.png" class="logo-floating" alt="Logo">
-        <h1 class="welcome-msg">Hello, Welcome!</h1>
-        <p style="font-size: 0.9rem; font-style: italic; margin-bottom: 20px;">Rekomendasi barang pilihan Husnah ✨</p>
+    <div class="card" id="top-anchor">
+        <img src="Logo_husnah.png" class="logo">
+        <h1 class="welcome">Hello, Welcome!</h1>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Rekomendasi produk pilihan ✨</p>
         
-        <div class="btn-flex">
-            <button class="btn-husnah btn-dark" onclick="showMe()">Owner 🎀</button>
-            <button class="btn-husnah btn-light" onclick="showSafe()">Safety 🛡️</button>
+        <div class="btn-group">
+            <button class="btn btn-1" onclick="Swal.fire('Halo!', 'Terima kasih sudah berkunjung.', 'info')">Owner</button>
+            <button class="btn btn-2" onclick="Swal.fire('Aman!', 'Link langsung ke toko official.', 'success')">Safety</button>
         </div>
 
-        <div style="font-size: 0.8rem; opacity: 0.6; border-top: 1px dashed #ccc; padding-top: 15px;">
-            🤖 Sewa Bot WA: <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--sage); text-decoration: none; font-weight: bold;">Klik Disini</a>
+        <div style="font-size: 0.75rem;">
+            🤖 Bot WA: <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--sage); font-weight: bold; text-decoration: none;">Klik Disini</a>
         </div>
     </div>
 
-    <div class="nav-container" id="category-nav">
-        <div class="nav-pill active" onclick="goPage('baju.html', this)">👗 Outfit</div>
-        <div class="nav-pill" onclick="goPage('aksesoris.html', this)">🎀 Accessories</div>
+    <div class="nav" id="main-nav">
+        <div class="nav-item active" onclick="loadPage('baju.html', this)">👗 Outfit</div>
+        <div class="nav-item" onclick="loadPage('aksesoris.html', this)">🎀 Accessories</div>
     </div>
 
-    <iframe src="baju.html" id="frame-display"></iframe>
+    <iframe src="baju.html" id="content-frame"></iframe>
 
     <script>
-        function showMe() {
-            Swal.fire({
-                title: 'Meet Husnah ✨',
-                text: 'Halo! Terima kasih sudah mampir ya.',
-                imageUrl: 'https://files.catbox.moe/ivj273.jpg',
-                imageWidth: 100, imageHeight: 100,
-                confirmButtonColor: '#4f6d4f'
-            });
-        }
-
-        function showSafe() {
-            Swal.fire({
-                title: 'Aman Banget!',
-                text: 'Semua link di sini mengarah ke toko official.',
-                icon: 'success',
-                confirmButtonColor: '#4f6d4f'
-            });
-        }
-
-        // FUNGSI GANTI HALAMAN + SCROLL KE ATAS
-        function goPage(url, el) {
+        function loadPage(url, el) {
             // Ganti isi iframe
-            document.getElementById('frame-display').src = url;
+            document.getElementById('content-frame').src = url;
             
-            // Atur menu aktif
-            document.querySelectorAll('.nav-pill').forEach(n => n.classList.remove('active'));
+            // Menu aktif
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
             
-            // OTOMATIS BALIK KE ATAS (Ke posisi navigasi)
-            const navPosition = document.getElementById('category-nav').offsetTop;
+            // PAKSA SCROLL KE NAVIGASI (Biar langsung kelihatan produknya)
+            const navPos = document.getElementById('main-nav').offsetTop;
             window.scrollTo({
-                top: navPosition,
+                top: navPos,
                 behavior: 'smooth'
             });
         }
 
-        // Script Animasi Daun Jatuh
+        // Daun jatuh
         setInterval(() => {
             const leaf = document.createElement('div');
             leaf.className = 'leaf';
             leaf.innerText = '🍃';
             leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            leaf.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            leaf.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            leaf.style.animationDuration = (Math.random() * 4 + 4) + 's';
             document.body.appendChild(leaf);
             setTimeout(() => leaf.remove(), 8000);
-        }, 1000);
+        }, 1200);
     </script>
 </body>
 </html>
+
