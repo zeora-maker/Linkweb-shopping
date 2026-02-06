@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* 1. FONT CUSTOM (Pastikan file font ada di folder yang sama) */
+        /* 1. FONT CUSTOM */
         @font-face { font-family: 'HelloHoney'; src: url('hello honey.otf'); }
         @font-face { font-family: 'AdeliaFont'; src: url('Adelia.otf'); }
         @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
@@ -22,7 +22,6 @@
             --safe-blue: #3498db;
         }
 
-        /* 2. BACKGROUND & ANIMASI DAUN */
         body {
             margin: 0; padding: 0;
             background-color: var(--bg-light);
@@ -41,124 +40,124 @@
         .watermark-zenaw {
             position: fixed; bottom: 25px; right: 25px;
             font-family: 'AdeliaFont', cursive;
-            font-size: 1.8rem; color: var(--accent-dark);
-            z-index: 1000; animation: softSway 6s ease-in-out infinite;
+            font-size: 1.5rem; color: var(--accent-dark);
+            z-index: 1000; opacity: 0.6;
         }
-        @keyframes softSway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg) translateY(-8px); } }
 
-        /* 3. DASHBOARD CONTAINER */
+        /* 3. DASHBOARD */
         .dashboard-container {
             width: 90%; max-width: 800px;
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
-            border-radius: 40px; padding: 40px;
-            margin-top: 40px; text-align: center;
+            border-radius: 40px; padding: 30px;
+            margin-top: 20px; text-align: center;
             border: 2px solid var(--white);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .logo-wrap img { width: 110px; animation: float 3.5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .logo-wrap img { width: 90px; animation: float 3.5s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .welcome-title { font-family: 'HelloHoney', cursive; font-size: 3rem; margin: 10px 0; }
 
-        .welcome-title { font-family: 'HelloHoney', cursive; font-size: 3.8rem; margin: 10px 0; }
-        
-        .security-badge {
-            display: inline-flex; background: #e1f5fe; color: var(--safe-blue);
-            padding: 8px 20px; border-radius: 50px; font-size: 0.8rem;
-            font-weight: bold; margin-bottom: 25px; border: 1px solid #bbdefb;
-        }
-
-        /* 4. BUTTONS & NAV */
-        .btn-main { padding: 12px 25px; border-radius: 18px; font-weight: bold; cursor: pointer; border: none; transition: 0.3s; }
-        .btn-about { background: var(--accent); color: white; font-family: 'Adelia2Font'; }
-        .btn-verify { background: var(--white); color: var(--safe-blue); border: 2px solid var(--safe-blue); }
-
+        /* 4. STICKY NAV (PERBAIKAN HP) */
         .sticky-nav {
-            position: sticky; top: 0; width: 100%;
-            background: rgba(244, 249, 244, 0.95);
-            backdrop-filter: blur(15px); z-index: 2500;
-            padding: 15px 0; display: flex;
-            justify-content: center; align-items: center; gap: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: -webkit-sticky; /* Support Safari iOS */
+            position: sticky; 
+            top: 0; 
+            width: 100%;
+            background: #f4f9f4; /* Warna solid di HP agar tidak tembus */
+            z-index: 9999 !important; /* Pastikan di depan iframe */
+            padding: 12px 0; 
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-bottom: 1px solid var(--white);
         }
-        .nav-item { cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s; padding: 5px 12px; border-radius: 12px; }
-        .nav-item p { margin: 0; font-size: 0.85rem; font-weight: bold; }
-        .nav-item.active { background: var(--accent); color: white; }
 
-        /* 5. MUSIC BUTTON */
+        .nav-item { 
+            cursor: pointer; display: flex; align-items: center; gap: 5px; 
+            padding: 8px 15px; border-radius: 15px; transition: 0.3s;
+            background: white; border: 1px solid var(--bg-deep);
+        }
+        .nav-item p { margin: 0; font-size: 0.8rem; font-weight: bold; }
+        .nav-item.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* 5. MUSIC BUTTON (PERBAIKAN HP) */
         #music-btn {
-            position: fixed; bottom: 90px; left: 25px; z-index: 5000;
-            background: white; width: 55px; height: 55px; border-radius: 50%;
+            position: fixed; bottom: 25px; left: 25px; z-index: 9999;
+            background: white; width: 50px; height: 50px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer;
             border: 2px solid var(--accent);
         }
-        @keyframes rotating { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* 6. MODAL & FRAME */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); }
-        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 35px; width: 85%; max-width: 400px; text-align: center; position: relative; }
+        /* 6. FRAME */
+        #display-frame { 
+            width: 100%; 
+            max-width: 1150px; 
+            min-height: 1000px; /* Di HP jangan terlalu pendek */
+            border: none; 
+            margin-top: 10px;
+        }
 
-        #display-frame { width: 100%; max-width: 1150px; height: 2000px; border: none; }
-        .falling-ornament { position: fixed; top: -20px; z-index: -1; animation: fall linear forwards; opacity: 0.4; pointer-events: none; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 30px; width: 80%; max-width: 350px; text-align: center; position: relative; }
+
+        @media (max-width: 600px) {
+            .welcome-title { font-size: 2.2rem; }
+            .sticky-nav { gap: 8px; }
+            .nav-item { padding: 6px 10px; }
+            .nav-item p { font-size: 0.7rem; }
+        }
     </style>
 </head>
-<body>
+<body onclick="initAudio()"> <div class="watermark-zenaw">_husnahWeb</div>
 
-    <div class="watermark-zenaw">_husnahWeb</div>
-
-    <audio id="mainSong" loop>
+    <audio id="mainSong" loop preload="auto">
         <source src="idgitaf.mpeg" type="audio/mpeg">
     </audio>
 
     <div id="music-btn" onclick="toggleMusic()">
-        <span id="music-icon" style="font-size: 24px;">▶️</span>
+        <span id="music-icon" style="font-size: 20px;">▶️</span>
     </div>
 
     <div class="dashboard-container">
-        <div class="security-badge">🛡️ Jaminan Link Aman • No Phising • Official Only</div>
+        <div style="background: #e1f5fe; color: #3498db; padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; margin-bottom: 15px; display: inline-block;">🛡️ Link Aman & Official Only</div>
         <div class="logo-wrap"><img src="Logo_husnah.png" alt="Logo"></div>
         <h1 class="welcome-title">Hello, Welcome !</h1>
-        <p style="font-family: 'Adelia2Font'; font-size: 1.4rem; margin: 0; color: var(--accent);">Happy Shopping guys! ✨</p>
+        <p style="font-family: 'Adelia2Font'; font-size: 1.2rem; margin: 0; color: var(--accent);">Happy Shopping guys! ✨</p>
         
-        <div style="text-align: center; margin-top: 25px; padding: 0 10px;">
-            <p style="font-size: 0.95rem; color: #444; line-height: 1.7;">
-                "Capek nggak sih scroll sana-sini tapi dapetnya barang zonk? Sama Jir! Makanya aku bikin <b>_husnahWeb</b> ini biar kalian nggak perlu pusing lagi nyari barang yang beneran bagus & <i>worth it</i>." 🎀
-            </p>
-            <p style="font-size: 0.85rem; color: #666; font-style: italic; margin-top: 10px;">
-                Semua link dijamin aman lari langsung ke Shopee/TikTok Official. Oh iya, buat kamu yang mau sewa bot management WA biar grupnya rapi, cek di bawah ya! 🫶🌿
+        <div style="text-align: center; margin-top: 15px; padding: 0 5px;">
+            <p style="font-size: 0.85rem; color: #444; line-height: 1.5;">
+                "Gak mau zonk pas belanja? Di <b>_husnahWeb</b> semua link kurasi manual Jir. Langsung gas Shopee/TikTok Official!" 🎀
             </p>
         </div>
 
-        <div style="display: flex; gap: 15px; justify-content: center; margin: 25px 0;">
-            <button class="btn-main btn-about" onclick="openAbout()">About Owner & Bot 🎀</button>
-            <button class="btn-main btn-verify" onclick="showSafetyNotif()">Cek Keamanan Link 🛡️</button>
+        <div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0;">
+            <button class="btn-main btn-about" onclick="openAbout()" style="font-size: 0.75rem;">About Owner 🎀</button>
+            <button class="btn-main btn-verify" onclick="showSafetyNotif()" style="font-size: 0.75rem;">Safety Check 🛡️</button>
         </div>
 
-        <div style="background: var(--bg-light); padding: 12px; border-radius: 15px; border: 1px dashed var(--accent); font-size: 0.8rem;">
-            🤖 <b>Sewa Bot WA Official:</b> <br>
-            <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--accent); font-weight: bold;">zeenaww-storebot.netlify.app</a>
+        <div style="background: var(--bg-light); padding: 10px; border-radius: 15px; border: 1px dashed var(--accent); font-size: 0.75rem;">
+            🤖 <b>Sewa Bot WA:</b> <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: none;">Klik Disini</a>
         </div>
     </div>
 
     <div class="sticky-nav">
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:1px solid var(--accent); border-radius:50px; cursor:pointer; font-size:10px; padding:5px 10px;">TOP</button>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:white; border:1px solid var(--accent); border-radius:50px; cursor:pointer; font-size:9px; padding:5px 8px;">TOP</button>
         <div class="nav-item active" onclick="loadPage('baju.html', this)"><span>👗</span><p>Outfit</p></div>
         <div class="nav-item" onclick="loadPage('aksesoris.html', this)"><span>🎀</span><p>Accessories</p></div>
     </div>
 
     <div id="aboutModal" class="modal">
         <div class="modal-content">
-            <span style="position:absolute; right:25px; top:15px; cursor:pointer; font-size:24px;" onclick="closeAbout()">&times;</span>
-            <img src="https://files.catbox.moe/ivj273.jpg" alt="Owner" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-deep);">
-            <h3 style="font-family:'Adelia2Font'; margin: 15px 0;">Meet Husnah! ✨</h3>
-            <p style="font-size: 0.8rem; color: #666; line-height: 1.6;">"Mau grup WA kamu aman dari spam & lebih rapi? Pakai bot aku Jir!"</p>
-            <div style="background: var(--bg-light); padding: 10px; border-radius: 15px; margin-top: 15px;">
-                <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="font-size: 0.75rem; color: var(--accent); font-weight: bold; text-decoration: none;">🔗 Link Sewa Bot WA 🤖</a>
-            </div>
+            <span style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:24px;" onclick="closeAbout()">&times;</span>
+            <img src="https://files.catbox.moe/ivj273.jpg" alt="Owner" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-deep);">
+            <h3 style="font-family:'Adelia2Font'; margin: 10px 0;">Meet Husnah! ✨</h3>
+            <p style="font-size: 0.75rem; color: #666;">"Sewa bot management WA? Hubungi aku ya Jir!"</p>
+            <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="font-size: 0.8rem; color: var(--accent); font-weight: bold;">Ke Website Bot 🤖</a>
         </div>
     </div>
 
@@ -168,23 +167,25 @@
         var song = document.getElementById("mainSong");
         var icon = document.getElementById("music-icon");
         var btn = document.getElementById("music-btn");
+        var audioInitialized = false;
+
+        // Fungsi khusus pancingan browser HP
+        function initAudio() {
+            if (!audioInitialized) {
+                song.play().then(() => {
+                    song.pause(); // Cuma mancing ijin browser
+                    audioInitialized = true;
+                }).catch(e => console.log("Menunggu klik tombol..."));
+            }
+        }
 
         function toggleMusic() {
             if (song.paused) {
                 song.play().then(() => {
                     icon.innerHTML = "⏸️";
                     btn.style.animation = "rotating 3s linear infinite";
-                    Swal.fire({ 
-                        toast: true, 
-                        position: 'bottom-start', 
-                        showConfirmButton: false, 
-                        timer: 3000, 
-                        title: 'Idgitaf Mode On! 🎶☔', 
-                        background: '#f4f9f4', 
-                        color: '#4f6d4f' 
-                    });
                 }).catch(e => {
-                    Swal.fire('Klik Layar Dulu Jir!', 'Klik sembarang tempat baru tekan Play musiknya ya.', 'info');
+                    Swal.fire('Oops!', 'Klik layar mana saja dulu baru tekan Play Jir!', 'info');
                 });
             } else {
                 song.pause();
@@ -198,9 +199,10 @@
         
         function showSafetyNotif() {
             Swal.fire({
-                title: 'Aman Jir! 🛡️✨',
-                html: 'Semua link official & terverifikasi.<br><br><b>Sewa Bot WA:</b><br><a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: #4f6d4f; font-weight:bold;">Klik Disini 🤖</a>',
-                icon: 'success', confirmButtonColor: '#4f6d4f', background: '#f4f9f4'
+                title: 'Aman Jir!',
+                text: 'Link Official Only!',
+                icon: 'success',
+                confirmButtonColor: '#4f6d4f'
             });
         }
 
@@ -208,18 +210,10 @@
             document.getElementById('display-frame').src = url;
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             element.classList.add('active');
-            window.scrollTo({ top: document.querySelector('.sticky-nav').offsetTop, behavior: 'smooth' });
+            // Scroll ke bawah dashboard agar navigasi nempel di atas
+            const navPos = document.querySelector('.sticky-nav').offsetTop;
+            window.scrollTo({ top: navPos, behavior: 'smooth' });
         }
-
-        setInterval(() => {
-            const el = document.createElement('div');
-            el.className = 'falling-ornament'; el.innerText = '🍃';
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = Math.random() * 10 + 15 + 'px';
-            el.style.animationDuration = Math.random() * 5 + 8 + 's';
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 12000);
-        }, 700);
     </script>
 </body>
 </html>
