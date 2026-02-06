@@ -3,189 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>_husnahWeb | Spill Barang Estetik Disini!</title>
+    <title>_husnahWeb | Rekomendasi Produk Estetik</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
+        /* FONT IMPORT - Pastikan file font ada di folder yang sama */
         @font-face { font-family: 'HelloHoney'; src: url('hello honey.otf'); }
-        @font-face { font-family: 'AdeliaFont'; src: url('Adelia.otf'); }
-        @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
 
         :root {
-            --bg-light: #f4f9f4;
-            --accent: #4f6d4f;
+            --sage: #4f6d4f;
+            --light-sage: #f4f9f4;
             --white: #ffffff;
         }
 
         body {
             margin: 0; padding: 0;
-            background-color: var(--bg-light);
-            background-image: 
-                linear-gradient(rgba(220, 237, 193, 0.5) 1.5px, transparent 1.5px),
-                linear-gradient(90deg, rgba(220, 237, 193, 0.5) 1.5px, transparent 1.5px);
-            background-size: 40px 40px;
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: var(--accent);
+            background-color: var(--light-sage);
+            background-image: radial-gradient(#dcedc1 1px, transparent 1px);
+            background-size: 20px 20px;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--sage);
             display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* ANIMASI DAUN JATUH */
+        .leaf {
+            position: fixed; top: -10px; z-index: 999;
+            pointer-events: none; animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* HEADER & LOGO */
+        .header-brand {
+            font-family: 'HelloHoney', cursive;
+            font-size: 2.5rem; margin-top: 30px;
+        }
+
+        .logo-container { margin: 20px 0; }
+        .logo-container img {
+            width: 100px;
+            animation: bounce 3s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         /* DASHBOARD */
-        .dashboard-container {
-            width: 85%; max-width: 500px;
+        .card {
+            width: 85%; max-width: 450px;
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 35px; padding: 30px 20px;
-            margin-top: 30px; text-align: center;
+            border-radius: 30px; padding: 25px;
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border: 1px solid var(--white);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .welcome-title { font-family: 'HelloHoney', cursive; font-size: 2.8rem; margin: 10px 0; }
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+        .btn {
+            padding: 10px 20px; border-radius: 50px; border: none;
+            font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .btn-primary { background: var(--sage); color: white; }
+        .btn-outline { background: white; color: var(--sage); border: 1px solid var(--sage); }
 
-        /* TOMBOL ESTETIK FIX */
-        .btn-group { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
-        .btn-main { 
-            padding: 12px 20px; border-radius: 50px; border: none;
-            font-family: 'Adelia2Font'; font-size: 0.75rem; cursor: pointer;
-            transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex; align-items: center; gap: 5px;
+        /* NAVIGASI STICKY */
+        .nav-bar {
+            position: sticky; top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1000; padding: 15px 0;
+            display: flex; justify-content: center; gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .btn-about { background: var(--accent); color: white; }
-        .btn-verify { background: white; color: var(--accent); border: 1px solid var(--accent); }
-        .btn-main:active { transform: scale(0.9); }
+        .nav-item {
+            padding: 8px 15px; border-radius: 20px; cursor: pointer;
+            font-size: 0.85rem; font-weight: bold; background: #eee;
+        }
+        .nav-item.active { background: var(--sage); color: white; }
 
-        /* NAVIGASI - STICKY FIX */
-        .sticky-nav {
-            position: -webkit-sticky; position: sticky; 
-            top: 0; width: 100%;
-            background: rgba(244, 249, 244, 0.95); 
-            z-index: 100; /* Z-index rendah agar tidak menimpa pop-up */
-            padding: 15px 0; display: flex;
-            justify-content: center; align-items: center; gap: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .nav-item { 
-            cursor: pointer; display: flex; align-items: center; gap: 5px; 
-            padding: 8px 15px; border-radius: 12px; transition: 0.3s;
-            background: white; border: 1px solid #eee;
-        }
-        .nav-item p { margin: 0; font-size: 0.75rem; font-weight: bold; }
-        .nav-item.active { background: var(--accent); color: white; }
-
-        /* MODAL FIX */
-        .modal { 
-            display: none; position: fixed; z-index: 10000; 
-            left: 0; top: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); 
-        }
-        .modal-content { 
-            background: white; margin: 20% auto; padding: 25px; 
-            border-radius: 30px; width: 80%; max-width: 300px; 
-            text-align: center; position: relative;
-        }
-
-        /* MUSIC BUTTON */
-        #music-btn {
-            position: fixed; bottom: 25px; left: 25px; z-index: 1000;
+        /* MUSIC PLAYER */
+        #music-toggle {
+            position: fixed; bottom: 20px; left: 20px; z-index: 2000;
             background: white; width: 50px; height: 50px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 2px solid var(--accent);
-            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid var(--sage);
         }
 
-        #display-frame { width: 100%; min-height: 1000px; border: none; margin-top: 10px; }
+        iframe { width: 100%; min-height: 800px; border: none; margin-top: 10px; }
     </style>
 </head>
-<body onclick="unlockAudio()">
+<body onclick="startAudio()">
 
-    <audio id="mainSong" loop preload="auto">
+    <div class="header-brand">_husnahWeb</div>
+
+    <audio id="bgMusic" loop>
         <source src="idgitaf.mpeg" type="audio/mpeg">
     </audio>
 
-    <div id="music-btn" onclick="toggleMusic()">
-        <span id="music-icon" style="font-size: 20px;">▶️</span>
+    <div id="music-toggle" onclick="handleMusic()">
+        <span id="music-status">▶️</span>
     </div>
 
-    <div class="dashboard-container">
-        <div class="logo-wrap"><img src="Logo_husnah.png" alt="Logo" style="width: 80px;"></div>
-        <h1 class="welcome-title">Hello, Welcome !</h1>
-        <p style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">Spill barang racun & estetik Jir! ✨</p>
+    <div class="card">
+        <div class="logo-container">
+            <img src="Logo_husnah.png" alt="Logo Husnah">
+        </div>
+        <h2 style="margin: 0;">Selamat Datang</h2>
+        <p style="font-size: 0.9rem; color: #666;">Temukan berbagai rekomendasi produk pilihan yang estetik dan berkualitas hanya di sini.</p>
         
         <div class="btn-group">
-            <button class="btn-main btn-about" onclick="openAbout()"><span>🎀</span> Owner</button>
-            <button class="btn-main btn-verify" onclick="showSafetyNotif()"><span>🛡️</span> Safety</button>
+            <button class="btn btn-primary" onclick="showOwner()">Profil Owner</button>
+            <button class="btn btn-outline" onclick="showSecurity()">Cek Keamanan</button>
         </div>
-
-        <div style="background: var(--bg-light); padding: 10px; border-radius: 15px; font-size: 0.7rem; border: 1px dashed var(--accent);">
-            🤖 <b>Sewa Bot WA:</b> <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: none;">Klik Disini</a>
-        </div>
+        
+        <p style="font-size: 0.7rem; margin-top: 15px;">
+            Layanan Bot WhatsApp: <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--sage); font-weight: bold;">Klik di Sini</a>
+        </p>
     </div>
 
-    <div class="sticky-nav">
-        <div class="nav-item active" onclick="loadPage('baju.html', this)"><span>👗</span><p>Outfit</p></div>
-        <div class="nav-item" onclick="loadPage('aksesoris.html', this)"><span>🎀</span><p>Accessories</p></div>
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="changePage('baju.html', this)">👗 Outfit</div>
+        <div class="nav-item" onclick="changePage('aksesoris.html', this)">🎀 Aksesoris</div>
     </div>
 
-    <div id="aboutModal" class="modal" onclick="closeAbout()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <img src="https://files.catbox.moe/ivj273.jpg" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-light);">
-            <h3 style="margin: 15px 0; font-family: 'Adelia2Font';">Meet Husnah! ✨</h3>
-            <p style="font-size: 0.75rem; color: #666; line-height: 1.5;">Grup WA berantakan? Sewa bot aku aja Jir biar rapi & otomatis!</p>
-            <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="display:inline-block; margin-top:15px; padding:10px 20px; background:var(--accent); border-radius:50px; font-size:0.75rem; color:white; text-decoration:none; font-weight:bold;">Cek Bot WA 🤖</a>
-        </div>
-    </div>
-
-    <iframe src="baju.html" id="display-frame"></iframe>
+    <iframe src="baju.html" id="content-frame"></iframe>
 
     <script>
-        var song = document.getElementById("mainSong");
-        var icon = document.getElementById("music-icon");
-        var audioUnlocked = false;
+        const audio = document.getElementById('bgMusic');
+        const musicStatus = document.getElementById('music-status');
+        let isUnlocked = false;
 
-        // Pancingan ijin browser
-        function unlockAudio() {
-            if (!audioUnlocked) {
-                song.play().then(() => {
-                    song.pause();
-                    audioUnlocked = true;
-                }).catch(() => {});
+        // Fungsi pemicu audio untuk HP
+        function startAudio() {
+            if (!isUnlocked) {
+                audio.play().then(() => {
+                    audio.pause();
+                    isUnlocked = true;
+                }).catch(e => console.log("Menunggu interaksi user"));
             }
         }
 
-        function toggleMusic() {
-            if (song.paused) {
-                song.play().then(() => {
-                    icon.innerHTML = "⏸️";
-                }).catch(e => {
-                    Swal.fire({ title: 'Klik Layar!', text: 'Klik area mana saja dulu baru play musik ya Jir!', icon: 'info', confirmButtonColor: '#4f6d4f' });
-                });
+        function handleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicStatus.innerText = "⏸️";
             } else {
-                song.pause();
-                icon.innerHTML = "▶️";
+                audio.pause();
+                musicStatus.innerText = "▶️";
             }
         }
 
-        function openAbout() { document.getElementById('aboutModal').style.display = "block"; }
-        function closeAbout() { document.getElementById('aboutModal').style.display = "none"; }
-        
-        function showSafetyNotif() {
+        function showOwner() {
             Swal.fire({
-                title: 'Aman guys!',
-                text: 'Semua link langsung ke toko official Shopee/TikTok.',
+                title: 'Profil Owner',
+                text: 'Halo! Saya Husnah. Terima kasih sudah berkunjung.',
+                imageUrl: 'https://files.catbox.moe/ivj273.jpg',
+                imageWidth: 100, imageHeight: 100, imageAlt: 'Owner',
+                confirmButtonColor: '#4f6d4f'
+            });
+        }
+
+        function showSecurity() {
+            Swal.fire({
+                title: 'Link Terverifikasi',
+                text: 'Seluruh tautan mengarah langsung ke toko resmi di marketplace.',
                 icon: 'success',
                 confirmButtonColor: '#4f6d4f'
             });
         }
 
-        function loadPage(url, element) {
-            document.getElementById('display-frame').src = url;
+        function changePage(url, el) {
+            document.getElementById('content-frame').src = url;
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-            window.scrollTo({ top: document.querySelector('.sticky-nav').offsetTop, behavior: 'smooth' });
+            el.classList.add('active');
+            window.scrollTo({ top: document.querySelector('.nav-bar').offsetTop, behavior: 'smooth' });
         }
+
+        // Script Daun Jatuh
+        setInterval(() => {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.innerText = '🍃';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            leaf.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 8000);
+        }, 1000);
     </script>
 </body>
 </html>
