@@ -3,213 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>_husnahWeb | Katalog Estetik</title>
+    <title>_husnahWeb | Katalog Estetik ✨</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* PEMANGGILAN FONT */
+        /* PEMANGGILAN FONT - Pastikan file ada di folder yang sama */
         @font-face { font-family: 'HelloHoney'; src: url('hello honey.otf'); }
         @font-face { font-family: 'AdeliaFont'; src: url('Adelia.otf'); }
         @font-face { font-family: 'Adelia2Font'; src: url('Adelia2.otf'); }
 
         :root {
             --sage: #4f6d4f;
-            --bg: #f4f9f4;
+            --soft-green: #dcedc1;
+            --bg-cream: #f4f9f4;
             --white: #ffffff;
         }
 
         body {
             margin: 0; padding: 0;
-            background-color: var(--bg);
-            background-image: radial-gradient(#dcedc1 1.5px, transparent 1.5px);
-            background-size: 30px 30px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-cream);
+            background-image: radial-gradient(var(--soft-green) 2px, transparent 2px);
+            background-size: 35px 35px;
             color: var(--sage);
             display: flex; flex-direction: column; align-items: center;
             overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* WATERMARK BRAND */
-        .brand-name {
+        /* WATERMARK BRAND - ADELIA FONT */
+        .brand-header {
             font-family: 'AdeliaFont', cursive;
-            font-size: 2.2rem;
-            margin-top: 40px;
-            color: var(--sage);
-            text-shadow: 2px 2px var(--white);
+            font-size: 2.8rem;
+            margin-top: 50px;
+            letter-spacing: 2px;
+            animation: fadeIn 2s ease;
         }
 
         /* ANIMASI DAUN JATUH */
         .leaf {
             position: fixed; top: -20px; z-index: 9999;
             pointer-events: none; animation: fall linear forwards;
-            opacity: 0.6;
+            opacity: 0.5; font-size: 20px;
         }
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* DASHBOARD */
-        .main-card {
-            width: 85%; max-width: 500px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 40px; padding: 35px 20px;
-            margin: 25px 0; text-align: center;
+        /* MAIN CARD - DESAIN LENGKUNG LEMBUT */
+        .glass-card {
+            width: 88%; max-width: 550px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 50px; padding: 40px 25px;
+            margin: 30px 0; text-align: center;
             border: 2px solid var(--white);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            box-shadow: 0 20px 45px rgba(79, 109, 79, 0.08);
         }
 
-        .logo-img {
-            width: 110px;
-            animation: floating 3s ease-in-out infinite;
+        .logo-floating {
+            width: 120px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            animation: float 3s ease-in-out infinite;
         }
-        @keyframes floating {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .title-welcome {
+        /* WELCOME TEXT - HELLO HONEY FONT */
+        .welcome-msg {
             font-family: 'HelloHoney', cursive;
-            font-size: 3.5rem;
-            margin: 15px 0;
+            font-size: 4.5rem; /* Ukuran besar biar cantik */
+            margin: 10px 0;
             color: var(--sage);
+            line-height: 1;
         }
 
-        /* BUTTONS */
-        .btn-container { display: flex; gap: 12px; justify-content: center; margin: 25px 0; }
-        .btn-custom {
-            padding: 12px 25px; border-radius: 50px; border: none;
+        .sub-msg {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* BUTTONS - ADELIA 2 FONT */
+        .btn-flex { display: flex; gap: 15px; justify-content: center; margin-bottom: 25px; }
+        .btn-husnah {
+            padding: 15px 30px; border-radius: 50px; border: none;
             font-family: 'Adelia2Font', sans-serif;
-            font-size: 1rem; cursor: pointer; transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(79, 109, 79, 0.2);
+            font-size: 1.1rem; cursor: pointer; transition: 0.4s;
+            box-shadow: 0 8px 20px rgba(79, 109, 79, 0.15);
         }
-        .btn-about { background: var(--sage); color: white; }
-        .btn-safety { background: white; color: var(--sage); border: 1.5px solid var(--sage); }
+        .btn-dark { background: var(--sage); color: white; }
+        .btn-light { background: white; color: var(--sage); border: 2px solid var(--sage); }
+        .btn-husnah:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
 
-        /* NAVIGASI STICKY */
-        .sticky-menu {
+        /* STICKY NAVIGATION */
+        .nav-container {
             position: sticky; top: 0; width: 100%;
-            background: rgba(244, 249, 244, 0.9);
-            z-index: 1000; padding: 15px 0;
-            display: flex; justify-content: center; gap: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: rgba(244, 249, 244, 0.96);
+            z-index: 1000; padding: 20px 0;
+            display: flex; justify-content: center; gap: 20px;
+            border-bottom: 1px solid rgba(79, 109, 79, 0.1);
         }
-        .menu-item {
-            padding: 10px 20px; border-radius: 25px; cursor: pointer;
-            font-family: 'Adelia2Font', sans-serif; font-size: 0.9rem;
-            background: white; border: 1px solid #ddd;
+        .nav-pill {
+            padding: 12px 25px; border-radius: 30px; cursor: pointer;
+            font-family: 'Adelia2Font', sans-serif; font-size: 1rem;
+            background: white; border: 1.5px solid #eee; transition: 0.3s;
         }
-        .menu-item.active { background: var(--sage); color: white; border-color: var(--sage); }
+        .nav-pill.active { background: var(--sage); color: white; border-color: var(--sage); }
 
-        /* MUSIC TOGGLE */
-        #music-box {
-            position: fixed; bottom: 25px; left: 25px; z-index: 5000;
-            background: white; width: 55px; height: 55px; border-radius: 50%;
+        /* MUSIC CONTROLLER */
+        #music-trigger {
+            position: fixed; bottom: 30px; left: 30px; z-index: 5000;
+            background: white; width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15); border: 2px solid var(--sage);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid var(--sage);
+            cursor: pointer;
         }
 
-        iframe { width: 100%; min-height: 1200px; border: none; }
+        iframe { width: 100%; min-height: 1500px; border: none; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .welcome-msg { font-size: 3.5rem; }
+            .brand-header { font-size: 2rem; }
+        }
     </style>
 </head>
-<body onclick="unlockMusic()">
+<body onclick="enableAudio()">
 
-    <div class="brand-name">_husnahWeb</div>
+    <div class="brand-header">_husnahWeb</div>
 
-    <audio id="audioPlayer" loop>
+    <audio id="mainAudio" loop>
         <source src="idgitaf.mpeg" type="audio/mpeg">
     </audio>
 
-    <div id="music-box" onclick="controlMusic()">
-        <span id="music-icon" style="font-size: 24px;">▶️</span>
+    <div id="music-trigger" onclick="playPause()">
+        <span id="music-label" style="font-size: 26px;">▶️</span>
     </div>
 
-    <div class="main-card">
-        <img src="Logo_husnah.png" class="logo-img" alt="Logo">
-        <h1 class="title-welcome">Hello, Welcome!</h1>
-        <p style="font-size: 0.95rem; line-height: 1.6;">Rekomendasi produk estetik pilihan Husnah untuk mempercantik harimu. Selamat berbelanja!</p>
+    <div class="glass-card">
+        <img src="Logo_husnah.png" class="logo-floating" alt="Logo Husnah">
         
-        <div class="btn-container">
-            <button class="btn-custom btn-about" onclick="openProfile()">Owner 🎀</button>
-            <button class="btn-custom btn-safety" onclick="checkSecurity()">Safety 🛡️</button>
+        <h1 class="welcome-msg">Hello, Welcome!</h1>
+        
+        <p class="sub-msg">
+            Selamat datang di katalog mungilku! Di sini aku kumpulin semua barang-barang estetik yang pastinya berguna buat kamu. Happy scrolling, cantik! ✨
+        </p>
+        
+        <div class="btn-flex">
+            <button class="btn-husnah btn-dark" onclick="showMe()">Owner 🎀</button>
+            <button class="btn-husnah btn-light" onclick="showSafe()">Safety 🛡️</button>
         </div>
 
-        <div style="font-size: 0.8rem; border-top: 1px dashed #ccc; pt-15px; margin-top: 20px; padding-top: 15px;">
-            🤖 Sewa Bot WA Management: <br>
+        <div style="font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 20px; opacity: 0.7;">
+            🤖 Butuh Management Grup? Sewa Bot WA di sini: <br>
             <a href="http://zeenaww-storebot.netlify.app/" target="_blank" style="color: var(--sage); font-weight: bold; text-decoration: none;">zeenaww-storebot.netlify.app</a>
         </div>
     </div>
 
-    <div class="sticky-menu">
-        <div class="menu-item active" onclick="loadFrame('baju.html', this)">👗 Outfit</div>
-        <div class="menu-item" onclick="loadFrame('aksesoris.html', this)">🎀 Accessories</div>
+    <div class="nav-container">
+        <div class="nav-pill active" onclick="goPage('baju.html', this)">👗 Outfit</div>
+        <div class="nav-pill" onclick="goPage('aksesoris.html', this)">🎀 Accessories</div>
     </div>
 
-    <iframe src="baju.html" id="main-frame"></iframe>
+    <iframe src="baju.html" id="frame-display"></iframe>
 
     <script>
-        const player = document.getElementById('audioPlayer');
-        const icon = document.getElementById('music-icon');
-        let unmuted = false;
+        const song = document.getElementById('mainAudio');
+        const icon = document.getElementById('music-label');
+        let unlocked = false;
 
-        // Script Unlock Audio untuk Mobile
-        function unlockMusic() {
-            if (!unmuted) {
-                player.play().then(() => {
-                    player.pause();
-                    unmuted = true;
-                }).catch(e => console.log("Menunggu klik..."));
+        // Buka ijin audio HP
+        function enableAudio() {
+            if (!unlocked) {
+                song.play().then(() => {
+                    song.pause();
+                    unlocked = true;
+                }).catch(e => {});
             }
         }
 
-        function controlMusic() {
-            if (player.paused) {
-                player.play();
+        function playPause() {
+            if (song.paused) {
+                song.play();
                 icon.innerText = "⏸️";
             } else {
-                player.pause();
+                song.pause();
                 icon.innerText = "▶️";
             }
         }
 
-        function openProfile() {
+        function showMe() {
             Swal.fire({
-                title: 'Profil Owner',
-                html: '<p style="font-family:Adelia2Font">Halo, saya Husnah! ✨</p>',
+                title: 'Meet Husnah ✨',
+                html: '<p style="font-family:Adelia2Font; font-size:1.2rem;">Halo semuanya! Terima kasih sudah mampir ke web sederhanaku ya. Hope you like it!</p>',
                 imageUrl: 'https://files.catbox.moe/ivj273.jpg',
-                imageWidth: 120, imageHeight: 120,
-                confirmButtonColor: '#4f6d4f'
+                imageWidth: 130, imageHeight: 130,
+                confirmButtonColor: '#4f6d4f',
+                background: '#f4f9f4'
             });
         }
 
-        function checkSecurity() {
+        function showSafe() {
             Swal.fire({
-                title: 'Link Aman',
-                text: 'Seluruh produk mengarah ke toko resmi terpercaya.',
+                title: '100% Aman',
+                text: 'Jangan khawatir, semua link di sini resmi dan langsung ke Marketplace!',
                 icon: 'success',
                 confirmButtonColor: '#4f6d4f'
             });
         }
 
-        function loadFrame(url, el) {
-            document.getElementById('main-frame').src = url;
-            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+        function goPage(url, el) {
+            document.getElementById('frame-display').src = url;
+            document.querySelectorAll('.nav-pill').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
-            window.scrollTo({ top: document.querySelector('.sticky-menu').offsetTop, behavior: 'smooth' });
+            window.scrollTo({ top: document.querySelector('.nav-container').offsetTop, behavior: 'smooth' });
         }
 
-        // Script Animasi Daun Jatuh
+        // Script Animasi Daun Jatuh Otomatis
         setInterval(() => {
             const leaf = document.createElement('div');
             leaf.className = 'leaf';
             leaf.innerText = '🍃';
             leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            leaf.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            leaf.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            leaf.style.animationDuration = (Math.random() * 5 + 5) + 's';
             document.body.appendChild(leaf);
-            setTimeout(() => leaf.remove(), 9000);
-        }, 800);
+            setTimeout(() => leaf.remove(), 10000);
+        }, 1200);
     </script>
 </body>
 </html>
